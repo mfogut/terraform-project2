@@ -16,7 +16,7 @@ resource "aws_route_table" "public_rt" {
 #Route table route for "public_rt"
 resource "aws_route" "public_rt_route" {
   route_table_id         = aws_route_table.public_rt.id
-  destination_cidr_block = "0.0.0.0/0"
+  destination_cidr_block = var.open_internet
   gateway_id             = aws_internet_gateway.my_vpc_igw.id
 }
 

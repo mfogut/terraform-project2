@@ -17,3 +17,8 @@ variable "db_subnet_cidr_block" {
   type    = list(any)
   default = ["10.0.4.0/24", "10.0.5.0/24"]
 }
+
+variable "open_internet" {
+  type    = string
+  default = "0.0.0.0/0"
+}
