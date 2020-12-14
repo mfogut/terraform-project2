@@ -1,2 +1,2 @@
-# terraform-project2
-# terraform-project2
+# In this project we will achieve diagram.
+![](VPC%20diagram.jpg)
