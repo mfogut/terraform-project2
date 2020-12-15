@@ -12,3 +12,7 @@
     - Target for Route      : Internet Gateway ID
 - 6 - Create NAT Gateway and allocate elastic ip address to NAT.
     - First get EIP from AWS use resource "aws_eip"
+- 7 - Create and configure Route Table for Private-Subnet-A and DB-Subnet-A. See "private-subnets-rt.tf"
+    - Destination for Route : 0.0.0.0/0
+    - Target for Route      :NAT Gateway ID
+- 8 - Create and configure Route Table for Private-Subnet-A and DB-Subnet-B follow same steps - 7. See "private-subnets-rt.tf"
