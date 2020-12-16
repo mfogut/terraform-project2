@@ -1,0 +1,21 @@
+resource "aws_instance" "bashtion_host" {
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = var.ec2_instance_type
+  subnet_id              = aws_subnet.public_subnet_a.id
+  vpc_security_group_ids = [aws_security_group.bashtion_sg.id]
+  key_name               = "demo"
+
+  tags = {
+    Name = "Bashtion-Host"
+  }
+}
+
+output "Bashtion_host_id" {
+  value       = aws_instance.bashtion_host.id
+  description = "Bastion host id"
+}
+
+output "Bashtion_host_key_pair" {
+  value       = aws_instance.bashtion_host.key_name
+  description = "Bastion host id"
+}
