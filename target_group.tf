@@ -9,7 +9,8 @@ resource "aws_lb_target_group" "lb_tg" {
     path                = "/var/www/html/index.html"
     healthy_threshold   = 3
     unhealthy_threshold = 2
-    interval            = 5
+    timeout             = 10
+    interval            = 30
     matcher             = 200
   }
 
@@ -21,9 +22,8 @@ resource "aws_lb_target_group" "lb_tg" {
 #Register Tartget Group
 
 resource "aws_lb_target_group_attachment" "al_tg_register" {
-  count             = 2
-  target_group_arn  = aws_lb_target_group.lb_tg.arn
-  target_id         = local.app_servers[count.index]
-  port              = 80
-  availability_zone = length(slice(local.az_names, 0, 2))
+  count            = 2
+  target_group_arn = aws_lb_target_group.lb_tg.arn
+  target_id        = local.app_servers[count.index]
+  port             = 80
 }
