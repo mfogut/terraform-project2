@@ -57,30 +57,32 @@ resource "aws_security_group" "app_server_sg" {
   description = "Allow SSH traffic from Bashtion Host and all HTTP traffic"
   vpc_id      = aws_vpc.my_vpc.id
 
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [aws_security_group.bashtion_sg.id]
-  }
-
-  ingress {
-    description = "HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [aws_security_group.alb_sg.id]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = [var.open_internet]
   }
-
   tags = {
     Name = "AppServer-SG"
   }
+}
+
+
+resource "aws_security_group_rule" "app_sg_http_rule" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.alb_sg.id
+  security_group_id        = aws_security_group.app_server_sg.id
+}
+
+resource "aws_security_group_rule" "app_sg_ssh_rule" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.bashtion_sg.id
+  security_group_id        = aws_security_group.app_server_sg.id
 }
