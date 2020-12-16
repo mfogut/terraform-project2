@@ -1,7 +1,7 @@
 ################Private Route Table-A###########################
 resource "aws_route_table" "private_rt_a" {
-  vpc_id = aws_vpc.my_vpc.id
-
+  vpc_id     = aws_vpc.my_vpc.id
+  depends_on = [aws_nat_gateway.public_subnet_a_nat]
   tags = {
     Name = "Private-RT-A"
   }
@@ -26,10 +26,11 @@ resource "aws_route_table_association" "db_subnet_a_association" {
 
 #################Private Route Table-B###########################
 resource "aws_route_table" "private_rt_b" {
-  vpc_id = aws_vpc.my_vpc.id
+  depends_on = [aws_nat_gateway.public_subnet_b_nat]
+  vpc_id     = aws_vpc.my_vpc.id
 
   tags = {
-    Name = "Private-RT-A"
+    Name = "Private-RT-B"
   }
 }
 
