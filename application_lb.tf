@@ -3,7 +3,7 @@ resource "aws_lb" "app_lb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = aws_subnet.public_subnet_.*.id
+  subnets            = local.app_server_subnets
 
   tags = {
     Name = "Terraform-ALB"
